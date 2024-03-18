@@ -1,7 +1,9 @@
+import sys
 from openpyxl import Workbook, load_workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.utils import column_index_from_string, get_column_letter
 
+sys.path.append('..')
 from analyze_utils.employee_analyze import EmployeeAnalyze
 from utils.write_excel_cell_utils import WriteExcelCellUtils
 from utils.dictionary_key import DictionaryKey

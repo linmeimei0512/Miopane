@@ -38,6 +38,8 @@ class ExpectCheckInLeaveAnalyze:
             self._end_date = datetime.now()
             self._start_date = self._end_date - timedelta(weeks=2)
 
+        print('date: {} ~ {}'.format(self._start_date, self._end_date))
+
 
     def _read_excel(self):
         self._workbook = load_workbook(self._excel_path)
@@ -53,7 +55,8 @@ class ExpectCheckInLeaveAnalyze:
 
         self._data_list = list(filter(lambda data: data['時間戳記'] > self._start_date and data['時間戳記'] < self._end_date, self._data_list))
 
-        # print(self._data_list)
+        # for data in self._data_list:
+        #     print(data)
 
 
     def search_by_group_name(self, search_group_name):
@@ -72,7 +75,9 @@ class ExpectCheckInLeaveAnalyze:
 
 
 if __name__ == '__main__':
-    expect_check_in_leave_analyze = ExpectCheckInLeaveAnalyze(excel_path='../../Document/預計報到離職+單位主管回報人力缺額.xlsx',
+    expect_check_in_leave_analyze = ExpectCheckInLeaveAnalyze(excel_path='../../Document3/預計報到離職+單位主管回報人力缺額.xlsx',
                                                               start_date_str='2024/03/01',
-                                                              end_date_str='2024/03/13')
+                                                              end_date_str='2024/03/18')
+    employee_list = expect_check_in_leave_analyze.search_by_group_name(search_group_name='Miopane台中內場')
+    print(employee_list)
     # expect_check_in_leave_analyze = ExpectCheckInLeaveAnalyze(excel_path='../../Document/預計報到離職+單位主管回報人力缺額.xlsx')

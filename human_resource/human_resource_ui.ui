@@ -14,6 +14,9 @@
    <string>野椿企業集團</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">centralWidget: {background:rgb(109, 109, 109)}</string>
+   </property>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -53,7 +56,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>171</width>
+       <width>201</width>
        <height>20</height>
       </rect>
      </property>
@@ -70,7 +73,7 @@
       <enum>Qt::AutoText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_top">
@@ -115,8 +118,7 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">
-</string>
+      <string notr="true"/>
      </property>
      <widget class="QPushButton" name="pushButton_employee_select_file">
       <property name="geometry">
@@ -554,7 +556,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>141</width>
+       <width>161</width>
        <height>20</height>
       </rect>
      </property>
@@ -562,6 +564,7 @@
       <font>
        <family>Arial</family>
        <pointsize>16</pointsize>
+       <italic>false</italic>
       </font>
      </property>
      <property name="text">
@@ -571,7 +574,7 @@
       <enum>Qt::AutoText</enum>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="Line" name="line_top_2">

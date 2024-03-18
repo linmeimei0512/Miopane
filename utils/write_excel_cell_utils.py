@@ -7,6 +7,7 @@ from openpyxl.styles.borders import Border, Side
 from openpyxl.utils.cell import coordinate_to_tuple
 from openpyxl.utils import column_index_from_string, get_column_letter
 from openpyxl.formatting.rule import CellIsRule
+from openpyxl.comments import Comment
 
 sys.path.append('../utils')
 from dictionary_key import DictionaryKey
@@ -23,6 +24,9 @@ class WriteExcelCellUtils:
             _end_row = _end[0] if _end is not None else _start_row
             _end_column = _end[1] if _end is not None else _start_column
             _value = value[DictionaryKey.VALUE] if DictionaryKey.VALUE in value.keys() else None
+
+            _comment = value[DictionaryKey.COMMENT] if DictionaryKey.COMMENT in value.keys() else None
+            _comment_width = value[DictionaryKey.COMMENT_WIDTH] if DictionaryKey.COMMENT_WIDTH in value.keys() else None
 
             _center = value[DictionaryKey.CENTER] if DictionaryKey.CENTER in value.keys() else False
             _width = value[DictionaryKey.WIDTH] if DictionaryKey.WIDTH in value.keys() else None
@@ -44,6 +48,12 @@ class WriteExcelCellUtils:
 
             # write cell value
             cell = sheet.cell(row=_start_row, column=_start_column, value=_value)
+
+            # write cell comment
+            if _comment is not None:
+                cell.comment = Comment(_comment, 'Vivi')
+                if _comment_width is not None:
+                    cell.comment.width = _comment_width
 
             # merge row and column
             if _start_row != _end_row and _start_column != _end_column:

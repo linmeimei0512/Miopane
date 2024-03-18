@@ -158,12 +158,16 @@ class CompanySheet(object):
     _note = ''
     _note_text_color = None
 
+    # debug
+    _debug = False
+
 
     def __init__(self, human_resource_workbook: Workbook, month,
                  employee_analyze: EmployeeAnalyze,
                  real_check_in_and_change_analyze: ReadCheckInAndChangeAnalyze,
                  real_leave_analyze: RealLeaveAnalyze,
-                 expect_check_in_leave_analyze: ExpectCheckInLeaveAnalyze):
+                 expect_check_in_leave_analyze: ExpectCheckInLeaveAnalyze,
+                 debug=False):
         self._human_resource_workbook = human_resource_workbook
         self._month = month
         self._department_value_start_column_index = column_index_from_string(self._department_value_start_column)
@@ -171,6 +175,7 @@ class CompanySheet(object):
         self._real_check_in_and_change_analyze = real_check_in_and_change_analyze
         self._real_leave_analyze = real_leave_analyze
         self._expect_check_in_leave_analyze = expect_check_in_leave_analyze
+        self._debug = debug
 
         self._create_company_sheet()
         self._write_root_cell()
@@ -224,6 +229,8 @@ class CompanySheet(object):
 
             # group
             for group in department.department_group_list:
+                if self._debug:
+                    print('\n***** {} - {} *****'.format(department.name, group.name))
                 self._note = ''
                 self._note_text_color = None
                 row_index = self._department_start_row + index
@@ -299,9 +306,12 @@ class CompanySheet(object):
                                  DictionaryKey.START: _expect_full_time_location,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
         # current
-        group.number_current_full_time_employee = len(self._get_employee(department_group_search_name=group.search_name, is_full_time=True))
+        _current_full_time_employee_list = self._get_employee(department_group_search_name=group.search_name, is_full_time=True)
+        group.number_current_full_time_employee = len(_current_full_time_employee_list)
+        _comment = '\n'.join(employee['顯示名稱'] for employee in _current_full_time_employee_list)
         _current_full_time_location = get_column_letter(column_index_from_string(self._department_value_start_column) + 2) + str(self._department_start_row + index)
         _department_list.append({DictionaryKey.VALUE: group.number_current_full_time_employee if group.number_current_full_time_employee_operator is None else group.number_current_full_time_employee_operator,
+                                 DictionaryKey.COMMENT: _comment if _comment != '' else None,
                                  DictionaryKey.START: _current_full_time_location,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
         # overflow / shortage
@@ -338,8 +348,11 @@ class CompanySheet(object):
                                          DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
 
                 # current
-                group.number_current_part_time_employee = len(self._get_employee(department_group_search_name=group.search_name, is_full_time=False))
+                _current_part_time_employee_list = self._get_employee(department_group_search_name=group.search_name, is_full_time=False)
+                _comment = '\n'.join(employee['顯示名稱'] for employee in _current_part_time_employee_list)
+                group.number_current_part_time_employee = len(_current_part_time_employee_list)
                 _department_list.append({DictionaryKey.VALUE: group.number_current_part_time_employee,
+                                         DictionaryKey.COMMENT: _comment if _comment != '' else None,
                                          DictionaryKey.START: _current_part_time_location,
                                          DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
 
@@ -372,14 +385,18 @@ class CompanySheet(object):
 
         _location = get_column_letter(column_index_from_string(self._department_value_start_column) + 7) + str(self._department_start_row + index)
         _value = ''
+        _comment = ''
         if group.search_name is not None:
-            _value = len(self._real_check_in_and_change_analyze.search_new_check_in_list(search_group_name=group.search_name))
+            new_check_in_list = self._real_check_in_and_change_analyze.search_new_check_in_list(search_group_name=group.search_name)
+            _value = len(new_check_in_list)
+            _comment = '\n'.join(('FT' if employee['身分類別(後)'] == '正式' else 'PT') + employee['顯示名稱'] for employee in new_check_in_list)
 
         else:
             _value = group.new_check_in_operator if group.new_check_in_operator is not None else ''
 
         _department_list.append({DictionaryKey.VALUE: _value,
                                  DictionaryKey.START: _location,
+                                 DictionaryKey.COMMENT: _comment if _comment != '' else None,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
         return _department_list
 
@@ -401,14 +418,31 @@ class CompanySheet(object):
         _in_location = get_column_letter(column_index_from_string(self._department_value_start_column) + 8) + str(self._department_start_row + index)
         _out_location = get_column_letter(column_index_from_string(self._department_value_start_column) + 9) + str(self._department_start_row + index)
         _in_value = ''
+        _in_comment = ''
         _out_value = ''
+        _out_comment = ''
 
         if group.search_name is not None:
             # change in
-            _in_value = len(self._real_check_in_and_change_analyze.search_change_list(search_group_name=group.search_name, in_or_out='in'))
+            _change_in_employee_list = self._real_check_in_and_change_analyze.search_change_list(search_group_name=group.search_name, in_or_out='in')
+            _in_value = len(_change_in_employee_list)
+            _in_comment = '\n'.join('{}{}(原:{}{}))'
+                                    .format('FT' if employee['身分類別(後)'] == '正式' else 'PT',
+                                            employee['顯示名稱'],
+                                            employee['所屬單位(前)'],
+                                            'FT' if employee['身分類別(前)'] == '正式' else 'PT')
+                                    for employee in _change_in_employee_list)
 
             # change out
-            _out_value = len(self._real_check_in_and_change_analyze.search_change_list(search_group_name=group.search_name, in_or_out='out'))
+            _change_out_employee_list = self._real_check_in_and_change_analyze.search_change_list(search_group_name=group.search_name, in_or_out='out')
+            _out_value = len(_change_out_employee_list)
+            _out_comment = '\n'.join(('FT' if employee['身分類別(後)'] == '正式' else 'PT') + employee['顯示名稱'] for employee in _change_out_employee_list)
+            _out_comment = '\n'.join('{}{}(後:{}{})'
+                                     .format('FT' if employee['身分類別(前)'] == '正式' else 'PT',
+                                             employee['顯示名稱'],
+                                             employee['所屬單位(後)'],
+                                             'FT' if employee['身分類別(後)'] == '正式' else 'PT')
+                                     for employee in _change_out_employee_list)
 
         else:
             # change in
@@ -418,9 +452,13 @@ class CompanySheet(object):
             _out_value = group.change_out_operator
 
         _department_list.append({DictionaryKey.VALUE: _in_value,
+                                 DictionaryKey.COMMENT: _in_comment if _in_comment is not '' else None,
+                                 DictionaryKey.COMMENT_WIDTH: 300,
                                  DictionaryKey.START: _in_location,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
         _department_list.append({DictionaryKey.VALUE: _out_value,
+                                 DictionaryKey.COMMENT: _out_comment if _out_comment is not '' else None,
+                                 DictionaryKey.COMMENT_WIDTH: 300,
                                  DictionaryKey.START: _out_location,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
         return _department_list
@@ -440,10 +478,13 @@ class CompanySheet(object):
         _department_list = []
         _location = get_column_letter(self._department_value_start_column_index + 10) + str(row_index)
         _leave_employee_list = []
+        _leave_without_pay_employee_list = []
 
         if group.search_name is not None:
             _leave_employee_list = self._real_leave_analyze.search_leave_list(search_group_name=group.search_name)
-            _value = len(_leave_employee_list)
+            _leave_without_pay_employee_list = self._real_check_in_and_change_analyze.search_leave_without_pay_list(search_group_name=group.search_name)
+            print('leave without pay employee list: [{}] -> {}'.format(len(_leave_without_pay_employee_list), _leave_without_pay_employee_list))
+            _value = len(_leave_employee_list + _leave_without_pay_employee_list)
 
         else:
             _value = group.real_leave_employee_operator
@@ -453,18 +494,31 @@ class CompanySheet(object):
                                  DictionaryKey.START: _location,
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
 
-        # leave employee
         _leave_employee_name = ''
         _leave_employee_seniority = ''
+
+        # leave employee
+        _leave_employee_name_list = []
+        _leave_employee_seniority_list = []
         if len(_leave_employee_list) > 0:
             # print(_leave_employee_list)
-            _leave_employee_name = '\n'.join(leave_employee['姓名'] for leave_employee in _leave_employee_list)
-            _leave_employee_seniority = '\n'.join(str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list)
+            _leave_employee_name_list = [leave_employee['姓名'] for leave_employee in _leave_employee_list]
+            _leave_employee_seniority_list = [str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list]
+            # _leave_employee_name = '\n'.join(leave_employee['姓名'] for leave_employee in _leave_employee_list)
+            # _leave_employee_seniority = '\n'.join(str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list)
 
-        _department_list.append({DictionaryKey.VALUE: _leave_employee_name,
+        # leave without pay employee
+        _leave_without_pay_name_list = []
+        _leave_without_pay_seniority_list = []
+        if len(_leave_without_pay_employee_list) > 0:
+            _leave_without_pay_name_list = [leave_without_pay_employee['顯示名稱'] + '(留停)' for leave_without_pay_employee in _leave_without_pay_employee_list]
+            _leave_without_pay_seniority_list = [''] * len(_leave_without_pay_employee_list)
+
+
+        _department_list.append({DictionaryKey.VALUE: '\n'.join(_leave_employee_name_list + _leave_without_pay_name_list),
                                  DictionaryKey.START: get_column_letter(self._department_value_start_column_index + 16) + str(row_index),
-                                 DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
-        _department_list.append({DictionaryKey.VALUE: _leave_employee_seniority,
+                                 DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True, DictionaryKey.WIDTH: 12})
+        _department_list.append({DictionaryKey.VALUE: '\n'.join(_leave_employee_seniority_list + _leave_without_pay_seniority_list),
                                  DictionaryKey.START: get_column_letter(self._department_value_start_column_index + 17) + str(row_index),
                                  DictionaryKey.CENTER: True, DictionaryKey.THIN_BORDER: True})
 
@@ -563,14 +617,24 @@ class CompanySheet(object):
         _employee_list = self._employee_analyze.search_by_department_group(search_group_name=department_group_search_name,
                                                                            is_full_time=is_full_time)
         _leave_employee_list = self._real_leave_analyze.search_leave_list(search_group_name=department_group_search_name)
+        _leave_without_pay_employee_list = self._real_check_in_and_change_analyze.search_leave_without_pay_list(search_group_name=department_group_search_name)
 
         employee_list = []
         for employee in _employee_list:
             _leave = False
+
+            # leave
             for leave_employee in _leave_employee_list:
                 if employee['工號'] == leave_employee['工號']:
                     _leave = True
-                    self._note += ('\n' if self._note != '' else '') + '{}({},{}) 已離職，但還在總表中'.format(employee['顯示名稱'], employee['工號'], employee['所屬單位'])
+                    self._add_note(note='{}({},{}) 已離職，但還在總表中'.format(employee['顯示名稱'], employee['工號'], employee['所屬單位']))
+                    # self._note += ('\n' if self._note != '' else '') + '{}({},{}) 已離職，但還在總表中'.format(employee['顯示名稱'], employee['工號'], employee['所屬單位'])
+
+            # leave without pay
+            for leave_without_pay_employee in _leave_without_pay_employee_list:
+                if employee['工號'] == leave_without_pay_employee['工號(前)']:
+                    _leave = True
+                    self._add_note(note='{}({},{}) 留職停薪'.format(employee['顯示名稱'], employee['工號'], employee['所屬單位']))
 
             if not _leave:
                 employee_list.append(employee)
@@ -610,3 +674,7 @@ class CompanySheet(object):
 
         WriteExcelCellUtils.Write(sheet=self._company_sheet,
                                   value_list=_total_list)
+
+
+    def _add_note(self, note):
+        self._note += ('\n' if self._note != '' else '') + note

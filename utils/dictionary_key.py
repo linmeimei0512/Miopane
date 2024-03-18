@@ -13,6 +13,9 @@ class DictionaryKey:
     TEXT_COLOR = 'text color'
     TEXT_WRAP = 'text wrap'
 
+    COMMENT = 'comment'
+    COMMENT_WIDTH = 'comment width'
+
     THIN_BORDER = 'thin border'
 
     BACKGROUND_COLOR = 'background color'

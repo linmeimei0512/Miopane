@@ -58,7 +58,9 @@ class ReadCheckInAndChangeAnalyze:
 
 
     def search_new_check_in_list(self, search_group_name):
-        _check_in_list = list(filter(lambda employee: employee['異動行為'] == '新進' or '再雇用' in employee['異動行為'], self._data_list))
+        _check_in_list = list(filter(lambda employee: employee['異動行為'] == '新進'
+                                                      or employee['異動行為'] == '復職'
+                                                      or '再雇用' in employee['異動行為'], self._data_list))
 
         check_in_list = []
         if type(search_group_name) == str:
@@ -74,8 +76,27 @@ class ReadCheckInAndChangeAnalyze:
         return check_in_list
 
 
+    def search_leave_without_pay_list(self, search_group_name):
+        _leave_without_pay_list = list(filter(lambda employee: employee['異動行為'] == '留停', self._data_list))
+
+        leave_without_pay_list = []
+        if type(search_group_name) == str:
+            leave_without_pay_list = list(filter(lambda employee: employee['所屬單位(前)'] == search_group_name, _leave_without_pay_list))
+
+        elif type(search_group_name) == list:
+            for name in search_group_name:
+                leave_without_pay_list = list(filter(lambda employee: employee['所屬單位(前)'] == name, _leave_without_pay_list))
+
+        # for leave_without_pay in leave_without_pay_list:
+        #     print(leave_without_pay)
+
+        return leave_without_pay_list
+
+
+
 
 if __name__ == '__main__':
-    real_check_in_and_change_analyze = ReadCheckInAndChangeAnalyze(excel_path='../../Document/實際入職+單位異動.xlsx')
+    real_check_in_and_change_analyze = ReadCheckInAndChangeAnalyze(excel_path='../../Document3/實際入職+單位異動.xlsx')
     # real_check_in_and_change_analyze.search_change_list(search_group_name='Miacucina信義A11外場')
-    real_check_in_and_change_analyze.search_new_check_in_list(search_group_name='Dreamers仁愛安和外場')
+    # real_check_in_and_change_analyze.search_new_check_in_list(search_group_name='Dreamers仁愛安和外場')
+    real_check_in_and_change_analyze.search_leave_without_pay_list(search_group_name='Miopane台南西門外場')
