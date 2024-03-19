@@ -1,16 +1,16 @@
 from openpyxl import Workbook
 
-from company_sheet import CompanySheet, Company, Department, DepartmentGroup
-from analyze_utils.employee_analyze import EmployeeAnalyze
-from analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
-from analyze_utils.real_leave_analyze import RealLeaveAnalyze
-from analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
+from human_resource_utils.company_sheet import CompanySheet, Company, Department, DepartmentGroup
+from human_resource_utils.analyze_utils.employee_analyze import EmployeeAnalyze
+from human_resource_utils.analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
+from human_resource_utils.analyze_utils.real_leave_analyze import RealLeaveAnalyze
+from human_resource_utils.analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
 from utils.dictionary_key import DictionaryKey
 
 
-class Miacucina(CompanySheet):
-    # micaucina company
-    _company_sheet_name = 'Miacucina'
+class Miopane(CompanySheet):
+    # miopane company
+    _company_sheet_name = 'Miopane'
 
     # root cell list
     _root_cell_list = [{DictionaryKey.VALUE: '品牌:Miacucina\n人力資源報表', DictionaryKey.START: 'A1', DictionaryKey.END: 'C1', DictionaryKey.CENTER: True, DictionaryKey.HEIGHT: 50, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True},
@@ -55,23 +55,23 @@ class Miacucina(CompanySheet):
                                 {DictionaryKey.VALUE: '當月離職率：當月離職人數 / (月初總人數＋當月入職人數)＊％', DictionaryKey.START: 'A28', DictionaryKey.END: 'S28', DictionaryKey.THIN_BORDER: True}]
 
     # company
-    _company = Company(name='Miacucina', sheet_name='Miacucina')
-    _company.department_list = [Department(name='天母', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina天母內場', number_expect_full_time_employee=7, number_expect_part_time_employee=3),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina天母外場', number_expect_full_time_employee=3, number_expect_part_time_employee=5)]),
-                                Department(name='內湖', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina內湖內場', number_expect_full_time_employee=6, number_expect_part_time_employee=2),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina內湖外場', number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
-                                Department(name='復興', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina復興內場', number_expect_full_time_employee=7, number_expect_part_time_employee=3),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina復興外場', number_expect_full_time_employee=6, number_expect_part_time_employee=4)]),
-                                Department(name='信義', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina信義A11內場', number_expect_full_time_employee=12, number_expect_part_time_employee=3),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina信義A11外場', number_expect_full_time_employee=7, number_expect_part_time_employee=5)]),
-                                Department(name='南西', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina南西內場', number_expect_full_time_employee=10, number_expect_part_time_employee=3),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina南西外場', number_expect_full_time_employee=7, number_expect_part_time_employee=5)]),
-                                Department(name='台中', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina台中內場', number_expect_full_time_employee=8, number_expect_part_time_employee=2),
-                                                                               DepartmentGroup(name='外場', search_name='Miacucina台中外場', number_expect_full_time_employee=6, number_expect_part_time_employee=5)]),
-                                Department(name='台南西門', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina台南西門內場', number_expect_full_time_employee=8, number_expect_part_time_employee=1),
-                                                                                   DepartmentGroup(name='外場', search_name='Miacucina台南西門外場', number_expect_full_time_employee=4, number_expect_part_time_employee=2)]),
-                                Department(name='新店裕隆城', department_group_list=[DepartmentGroup(name='內場', search_name='Miacucina新店裕隆城內場', number_expect_full_time_employee=8, number_expect_part_time_employee=5),
-                                                                                     DepartmentGroup(name='外場', search_name='Miacucina新店裕隆城外場', number_expect_full_time_employee=8, number_expect_part_time_employee=4)])]
+    _company = Company(name='Miopane', sheet_name='Miopane')
+    _company.department_list = [Department(name='忠孝', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane忠孝外場', number_expect_full_time_employee=3, number_expect_part_time_employee=2)]),
+                                Department(name='信義A8', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane信義A8內場', number_expect_full_time_employee=5, number_expect_part_time_employee=0),
+                                                                                 DepartmentGroup(name='外場', search_name='Miopane信義A8外場', number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='站前', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane站前外場', number_expect_full_time_employee=3, number_expect_part_time_employee=2)]),
+                                Department(name='板橋環球', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane板橋環球外場', number_expect_full_time_employee=5, number_expect_part_time_employee=2)]),
+                                Department(name='台中', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane台中內場', number_expect_full_time_employee=9, number_expect_part_time_employee=1),
+                                                                               DepartmentGroup(name='外場', search_name='Miopane台中外場', number_expect_full_time_employee=6, number_expect_part_time_employee=2)]),
+                                Department(name='台南西門', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane台南西門內場', number_expect_full_time_employee=9, number_expect_part_time_employee=0),
+                                                                                   DepartmentGroup(name='外場', search_name='Miopane台南西門外場', number_expect_full_time_employee=3, number_expect_part_time_employee=5)]),
+                                Department(name='南紡快閃', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane台南南紡快閃店', 'Miopane台南南紡快閃店外場'], number_expect_full_time_employee=0, number_expect_part_time_employee=4)]),
+                                Department(name='高雄左營三多', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane高雄左營外場', number_expect_full_time_employee=1, number_expect_part_time_employee=3)]),
+                                Department(name='高雄漢神巨蛋快閃', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane高雄漢神外場', number_expect_full_time_employee=2, number_expect_part_time_employee=3),
+                                                                                           DepartmentGroup(name='內場', search_name='Miopane高雄漢神內場', number_expect_full_time_employee=10, number_expect_part_time_employee=1),
+                                                                                           DepartmentGroup(name='外場', search_name='Miopane高雄巨蛋外場', number_expect_full_time_employee=2, number_expect_part_time_employee=3)]),
+                                Department(name='新竹巨城', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane新竹巨城店', 'Miopane新竹巨城外場'], number_expect_full_time_employee=1, number_expect_part_time_employee=4)]),
+                                Department(name='內湖CITYLINK', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane內湖CITYLINK店', 'Miopane內湖CITYLINK外場'], number_expect_full_time_employee=1, number_expect_part_time_employee=4)])]
 
 
     def __init__(self, human_resource_workbook: Workbook, month,

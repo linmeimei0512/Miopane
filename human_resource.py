@@ -2,18 +2,13 @@ import os
 import sys
 import traceback
 from datetime import datetime
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtCore import QDate, QEventLoop, QThread
-import tkinter
-from tkinter import filedialog
+from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtWidgets import QMainWindow, QFileDialog
+from PyQt5.QtCore import QDate, QThread
 from openpyxl import Workbook
 
-import human_resource_ui
-from analyze_utils.employee_analyze import EmployeeAnalyze
-from analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
-from analyze_utils.real_leave_analyze import RealLeaveAnalyze
-from analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
+from human_resource_utils.human_resource_ui import Ui_MainWindow
+from human_resource_utils.analyze_utils import EmployeeAnalyze, ReadCheckInAndChangeAnalyze, RealLeaveAnalyze, ExpectCheckInLeaveAnalyze
 
 class HumanResource:
     # month
@@ -103,7 +98,7 @@ class HumanResource:
 
     def _create_main_sheet(self):
         print('Generate main sheet... ', end='')
-        from main import HumanResourceMain
+        from human_resource_utils.main import HumanResourceMain
         human_resource_main = HumanResourceMain(human_resource_workbook=self._human_resource_workbook,
                                                 month=self._month,
                                                 employee_analyze=self._employee_analyze,
@@ -115,7 +110,7 @@ class HumanResource:
 
     def _create_head_office(self):
         print('Generate head office... ', end='')
-        from head_office import HeadOffice
+        from human_resource_utils.head_office import HeadOffice
         head_office = HeadOffice(human_resource_workbook=self._human_resource_workbook,
                                  month=self._month,
                                  employee_analyze=self._employee_analyze,
@@ -127,7 +122,7 @@ class HumanResource:
 
     def _create_miopane(self):
         print('Generate miopane... ', end='')
-        from miopane import Miopane
+        from human_resource_utils.miopane import Miopane
         miopane = Miopane(human_resource_workbook=self._human_resource_workbook,
                           month=self._month,
                           employee_analyze=self._employee_analyze,
@@ -139,7 +134,7 @@ class HumanResource:
 
     def _create_miacucina(self):
         print('Generate miacucine... ', end='')
-        from miacucina import Miacucina
+        from human_resource_utils.miacucina import Miacucina
         miacucina = Miacucina(human_resource_workbook=self._human_resource_workbook,
                               month=self._month,
                               employee_analyze=self._employee_analyze,
@@ -151,7 +146,7 @@ class HumanResource:
 
     def _create_other_company(self):
         print('Generate other company... ', end='')
-        from other_company import OtherCompany
+        from human_resource_utils.other_company import OtherCompany
         other_company = OtherCompany(human_resource_workbook=self._human_resource_workbook,
                                      month=self._month,
                                      employee_analyze=self._employee_analyze,
@@ -163,7 +158,7 @@ class HumanResource:
 
     def _create_dreamers(self):
         print('Generate dreamers... ', end='')
-        from dreamers import Dreamers
+        from human_resource_utils.dreamers import Dreamers
         dreamers = Dreamers(human_resource_workbook=self._human_resource_workbook,
                             month=self._month,
                             employee_analyze=self._employee_analyze,
@@ -202,7 +197,7 @@ class ConvertThreads(QThread):
 
     def run(self) -> None:
         try:
-            from leave_list_add_id_converter import LeaveListAddIDConverter
+            from human_resource_utils.leave_list_add_id_converter import LeaveListAddIDConverter
             converter = LeaveListAddIDConverter(leave_list_excel_path=self._leave_list_excel_path,
                                                 employee_excel_path=self._employee_excel_path,
                                                 leave_employee_excel_path=self._leave_employee_excel_path,
@@ -260,13 +255,15 @@ class GenerateThreads(QThread):
 
 
 
-class HumanResourceUI(QMainWindow, human_resource_ui.Ui_MainWindow):
-    tkinter_root = tkinter.Tk()
-    tkinter_root.withdraw()
+class HumanResourceUI(QMainWindow, Ui_MainWindow):
 
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowFlags((self.windowFlags() & ~QtCore.Qt.WindowMaximizeButtonHint & ~QtCore.Qt.WindowFullscreenButtonHint)
+                            | QtCore.Qt.CustomizeWindowHint)
+        self.setWindowIcon(QtGui.QIcon('./icon/miopane.png'))
+
         self._init_date()
         self._set_button_click()
 
@@ -371,47 +368,47 @@ class HumanResourceUI(QMainWindow, human_resource_ui.Ui_MainWindow):
         self.dateEdit_end.setDate(QDate.currentDate())
 
     def _button_converter_real_leave_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_converter_real_leave_value.setText(file_path)
 
     def _button_converter_employee_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_converter_employee_value.setText(file_path)
 
     def _button_converter_leave_list_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_converter_leave_list_value.setText(file_path)
 
     def _button_converter_save_select_directory_click(self):
-        dir_path = filedialog.askdirectory()
+        dir_path = QFileDialog.getExistingDirectory(self)
         if dir_path != '':
             self.lineEdit_converter_save_value.setText(dir_path)
 
     def _button_employee_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_employee_value.setText(file_path)
 
     def _button_real_check_in_and_change_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_real_check_in_and_change_value.setText(file_path)
 
     def _button_real_leave_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_real_leave_value.setText(file_path)
 
     def _button_manager_report_select_file_click(self):
-        file_path = filedialog.askopenfilename()
+        file_path, _ = QFileDialog.getOpenFileName(self)
         if file_path != '':
             self.lineEdit_manager_report_value.setText(file_path)
 
     def _button_save_select_directory_click(self):
-        dir_path = filedialog.askdirectory()
+        dir_path = QFileDialog.getExistingDirectory(self)
         if dir_path != '':
             self.lineEdit_save_value.setText(dir_path)
 
@@ -424,7 +421,14 @@ class HumanResourceUI(QMainWindow, human_resource_ui.Ui_MainWindow):
 
 
 if __name__ == '__main__':
+    # import qdarktheme
+    import qdarkstyle
+    # qdarktheme.enable_hi_dpi()
+
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # qdarktheme.setup_theme('auto')
+
     window = HumanResourceUI()
     window.show()
 

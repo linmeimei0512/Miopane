@@ -4,13 +4,8 @@ from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.utils import column_index_from_string, get_column_letter
 import numpy as np
 
-from analyze_utils.employee_analyze import EmployeeAnalyze
-from analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
-from analyze_utils.real_leave_analyze import RealLeaveAnalyze
-from analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
-from utils.dictionary_key import DictionaryKey
-from utils.write_excel_cell_utils import WriteExcelCellUtils
-
+from human_resource_utils.analyze_utils import EmployeeAnalyze, ReadCheckInAndChangeAnalyze, RealLeaveAnalyze, ExpectCheckInLeaveAnalyze
+from utils import DictionaryKey, WriteExcelCellUtils
 
 
 class DepartmentGroup:

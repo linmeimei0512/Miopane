@@ -1,19 +1,19 @@
 from openpyxl import Workbook
 
-from company_sheet import CompanySheet, Company, Department, DepartmentGroup
-from analyze_utils.employee_analyze import EmployeeAnalyze
-from analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
-from analyze_utils.real_leave_analyze import RealLeaveAnalyze
-from analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
+from human_resource_utils.company_sheet import CompanySheet, Company, Department, DepartmentGroup
+from human_resource_utils.analyze_utils.employee_analyze import EmployeeAnalyze
+from human_resource_utils.analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
+from human_resource_utils.analyze_utils.real_leave_analyze import RealLeaveAnalyze
+from human_resource_utils.analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
 from utils.dictionary_key import DictionaryKey
 
 
-class Miopane(CompanySheet):
-    # miopane company
-    _company_sheet_name = 'Miopane'
+class Dreamers(CompanySheet):
+    # dreamers company
+    _company_sheet_name = 'Dreamers'
 
     # root cell list
-    _root_cell_list = [{DictionaryKey.VALUE: '品牌:Miacucina\n人力資源報表', DictionaryKey.START: 'A1', DictionaryKey.END: 'C1', DictionaryKey.CENTER: True, DictionaryKey.HEIGHT: 50, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True},
+    _root_cell_list = [{DictionaryKey.VALUE: '品牌:Dreamers coffee\n人力資源報表', DictionaryKey.START: 'A1', DictionaryKey.END: 'C1', DictionaryKey.CENTER: True, DictionaryKey.HEIGHT: 50, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True},
                        {DictionaryKey.VALUE: '月', DictionaryKey.START: 'D1', DictionaryKey.END: 'F1', DictionaryKey.CENTER: True, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True},
                        {DictionaryKey.VALUE: '單位異動', DictionaryKey.START: 'L1', DictionaryKey.END: 'M1', DictionaryKey.CENTER: True, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True},
                        {DictionaryKey.VALUE: '預計', DictionaryKey.START: 'Q1', DictionaryKey.END: 'R1', DictionaryKey.CENTER: True, DictionaryKey.BOLD: True, DictionaryKey.THIN_BORDER: True, DictionaryKey.BACKGROUND_COLOR: 'FFFFCC'}]
@@ -55,23 +55,23 @@ class Miopane(CompanySheet):
                                 {DictionaryKey.VALUE: '當月離職率：當月離職人數 / (月初總人數＋當月入職人數)＊％', DictionaryKey.START: 'A28', DictionaryKey.END: 'S28', DictionaryKey.THIN_BORDER: True}]
 
     # company
-    _company = Company(name='Miopane', sheet_name='Miopane')
-    _company.department_list = [Department(name='忠孝', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane忠孝外場', number_expect_full_time_employee=3, number_expect_part_time_employee=2)]),
-                                Department(name='信義A8', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane信義A8內場', number_expect_full_time_employee=5, number_expect_part_time_employee=0),
-                                                                                 DepartmentGroup(name='外場', search_name='Miopane信義A8外場', number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
-                                Department(name='站前', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane站前外場', number_expect_full_time_employee=3, number_expect_part_time_employee=2)]),
-                                Department(name='板橋環球', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane板橋環球外場', number_expect_full_time_employee=5, number_expect_part_time_employee=2)]),
-                                Department(name='台中', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane台中內場', number_expect_full_time_employee=9, number_expect_part_time_employee=1),
-                                                                               DepartmentGroup(name='外場', search_name='Miopane台中外場', number_expect_full_time_employee=6, number_expect_part_time_employee=2)]),
-                                Department(name='台南西門', department_group_list=[DepartmentGroup(name='內場', search_name='Miopane台南西門內場', number_expect_full_time_employee=9, number_expect_part_time_employee=0),
-                                                                                   DepartmentGroup(name='外場', search_name='Miopane台南西門外場', number_expect_full_time_employee=3, number_expect_part_time_employee=5)]),
-                                Department(name='南紡快閃', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane台南南紡快閃店', 'Miopane台南南紡快閃店外場'], number_expect_full_time_employee=0, number_expect_part_time_employee=4)]),
-                                Department(name='高雄左營三多', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane高雄左營外場', number_expect_full_time_employee=1, number_expect_part_time_employee=3)]),
-                                Department(name='高雄漢神巨蛋快閃', department_group_list=[DepartmentGroup(name='外場', search_name='Miopane高雄漢神外場', number_expect_full_time_employee=2, number_expect_part_time_employee=3),
-                                                                                           DepartmentGroup(name='內場', search_name='Miopane高雄漢神內場', number_expect_full_time_employee=10, number_expect_part_time_employee=1),
-                                                                                           DepartmentGroup(name='外場', search_name='Miopane高雄巨蛋外場', number_expect_full_time_employee=2, number_expect_part_time_employee=3)]),
-                                Department(name='新竹巨城', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane新竹巨城店', 'Miopane新竹巨城外場'], number_expect_full_time_employee=1, number_expect_part_time_employee=4)]),
-                                Department(name='內湖CITYLINK', department_group_list=[DepartmentGroup(name='外場', search_name=['Miopane內湖CITYLINK店', 'Miopane內湖CITYLINK外場'], number_expect_full_time_employee=1, number_expect_part_time_employee=4)])]
+    _company = Company(name='Dreamers coffee', sheet_name='Dreamers')
+    _company.department_list = [Department(name='直營', department_group_list=[DepartmentGroup(name='內場', search_name='', number_expect_full_time_employee=1, number_expect_part_time_employee=0)]),
+                                Department(name='忠誠', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers忠誠內場', 'Dreamers忠誠'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='101', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers101內場', 'Dreamers101'], number_expect_full_time_employee=6, number_expect_part_time_employee=7)]),
+                                Department(name='A8', department_group_list=[DepartmentGroup(name='內場', search_name=['DreamersA8內場', 'DreamersA8'], number_expect_full_time_employee=5, number_expect_part_time_employee=5)]),
+                                Department(name='復興', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers復興內場', 'Dreamers復興'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='內湖', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers內湖內場', 'Dreamers內湖'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='光復', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers光復內場', 'Dreamers光復'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='永康', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers永康店內場', 'Dreamers永康'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='新店', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers新店寶橋店內場', 'Dreamers新店寶橋'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='微風', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers微風復興店內場', 'Dreamers微風復興'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='新莊', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers新莊中平內場', 'Dreamers新莊中平'], number_expect_full_time_employee=3, number_expect_part_time_employee=2)]),
+                                Department(name='南紡', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers台南南紡內場', 'Dreamers南紡'], number_expect_full_time_employee=5, number_expect_part_time_employee=6)]),
+                                Department(name='忠誠公園', department_group_list=[DepartmentGroup(name='內場', search_name=['Dreamers忠誠公園內場', 'Dreamers忠誠公園'], number_expect_full_time_employee=4, number_expect_part_time_employee=4)]),
+                                Department(name='仁愛', department_group_list=[DepartmentGroup(name='內場', search_name='Dreamers仁愛安和內場', number_expect_full_time_employee=4, number_expect_part_time_employee=0),
+                                                                               DepartmentGroup(name='外場', search_name='Dreamers仁愛安和外場', number_expect_full_time_employee=4, number_expect_part_time_employee=5)])]
+
 
 
     def __init__(self, human_resource_workbook: Workbook, month,

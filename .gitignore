@@ -13,6 +13,11 @@ venv.bak/
 # Python Cache
 __pycache__/
 
+# Build File
+build/
+dist/
+setup.py
+
 # Temp File
 _*
 

@@ -9,8 +9,8 @@ from openpyxl.utils import column_index_from_string, get_column_letter
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.comments import Comment
 
-sys.path.append('../utils')
-from dictionary_key import DictionaryKey
+# sys.path.append('../utils')
+from utils.dictionary_key import DictionaryKey
 
 class WriteExcelCellUtils:
 
