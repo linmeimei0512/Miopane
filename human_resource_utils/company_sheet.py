@@ -2,7 +2,7 @@ from typing import List
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.utils import column_index_from_string, get_column_letter
-import numpy as np
+from decimal import Decimal, ROUND_HALF_UP
 
 from human_resource_utils.analyze_utils import EmployeeAnalyze, ReadCheckInAndChangeAnalyze, RealLeaveAnalyze, ExpectCheckInLeaveAnalyze
 from utils import DictionaryKey, WriteExcelCellUtils
@@ -498,7 +498,8 @@ class CompanySheet(object):
         if len(_leave_employee_list) > 0:
             # print(_leave_employee_list)
             _leave_employee_name_list = [leave_employee['姓名'] for leave_employee in _leave_employee_list]
-            _leave_employee_seniority_list = [str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list]
+            _leave_employee_seniority_list = [str(Decimal(str(leave_employee['內部年資'])).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP)) for leave_employee in _leave_employee_list]
+            # _leave_employee_seniority_list = [str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list]
             # _leave_employee_name = '\n'.join(leave_employee['姓名'] for leave_employee in _leave_employee_list)
             # _leave_employee_seniority = '\n'.join(str(np.round(float(leave_employee['內部年資']), 1)) for leave_employee in _leave_employee_list)
 
