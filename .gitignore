@@ -20,6 +20,7 @@ setup.py
 
 # Temp File
 _*
+!__init__.py
 
 # Excel
 *.xlsx
