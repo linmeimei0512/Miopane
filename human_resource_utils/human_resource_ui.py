@@ -15,55 +15,108 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 803)
+        MainWindow.setStyleSheet("QLabel {\n"
+"    color: rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    background-color: rgb(47, 49, 51);\n"
+"    color: rgb(255, 255, 255);\n"
+"       border-radius: 8px;\n"
+"       border: 1px solid rgb(68, 73, 79);\n"
+"       padding: 5px 15px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"      border: 1px solid rgb(255, 255, 255);\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"      background-color: rgb(47, 49, 51);\n"
+"      color: rgb(255, 255, 255);\n"
+"      font-weight: 600;\n"
+"      border-radius: 8px;\n"
+"      border: 1px solid rgb(68, 73, 79);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"      background-color: rgb(64, 68, 71);\n"
+"}\n"
+"\n"
+"Line {\n"
+"    background-color: rgb(74, 81, 85);\n"
+"}\n"
+"\n"
+"\n"
+"QDateEdit {\n"
+"      background-color: rgb(47, 49, 51);\n"
+"      color: rgb(255, 255, 255);\n"
+"      border-radius: 8px;\n"
+"    border: 1px solid rgb(68, 73, 79);\n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"QDateEdit:drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"QDateEdit:down-arrow {\n"
+"    image: url(:/arrow-down/icon/arrow-down 01.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right: 10px;\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setStyleSheet("#centralwidget {\n"
+"    background-color: rgb(37, 39, 44);\n"
+"}")
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(270, 10, 231, 31))
+        self.label_title = QtWidgets.QLabel(self.centralwidget)
+        self.label_title.setGeometry(QtCore.QRect(0, 10, 791, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(20)
-        self.label.setFont(font)
-        self.label.setTextFormat(QtCore.Qt.AutoText)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
+        self.label_title.setFont(font)
+        self.label_title.setTextFormat(QtCore.Qt.AutoText)
+        self.label_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_title.setObjectName("label_title")
         self.widget_employee_root = QtWidgets.QWidget(self.centralwidget)
-        self.widget_employee_root.setGeometry(QtCore.QRect(20, 300, 761, 301))
+        self.widget_employee_root.setGeometry(QtCore.QRect(20, 290, 761, 301))
         self.widget_employee_root.setObjectName("widget_employee_root")
         self.label_employee_root_title = QtWidgets.QLabel(self.widget_employee_root)
-        self.label_employee_root_title.setGeometry(QtCore.QRect(0, 0, 171, 20))
+        self.label_employee_root_title.setGeometry(QtCore.QRect(0, 0, 201, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(16)
         self.label_employee_root_title.setFont(font)
         self.label_employee_root_title.setTextFormat(QtCore.Qt.AutoText)
-        self.label_employee_root_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_employee_root_title.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_employee_root_title.setObjectName("label_employee_root_title")
         self.line_top = QtWidgets.QFrame(self.widget_employee_root)
         self.line_top.setGeometry(QtCore.QRect(199, 10, 551, 1))
-        self.line_top.setStyleSheet("background-color:rgb(0, 0, 0)")
+        self.line_top.setStyleSheet("")
         self.line_top.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_top.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_top.setObjectName("line_top")
         self.line_left = QtWidgets.QFrame(self.widget_employee_root)
         self.line_left.setGeometry(QtCore.QRect(10, 30, 1, 201))
-        self.line_left.setStyleSheet("background-color:rgb(0, 0, 0)")
+        self.line_left.setStyleSheet("")
         self.line_left.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_left.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_left.setObjectName("line_left")
         self.widget_employee = QtWidgets.QWidget(self.widget_employee_root)
         self.widget_employee.setGeometry(QtCore.QRect(20, 70, 741, 31))
-        self.widget_employee.setStyleSheet("\n"
-"")
+        self.widget_employee.setStyleSheet("")
         self.widget_employee.setObjectName("widget_employee")
         self.pushButton_employee_select_file = QtWidgets.QPushButton(self.widget_employee)
-        self.pushButton_employee_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_employee_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_employee_select_file.setObjectName("pushButton_employee_select_file")
         self.label_employee_title = QtWidgets.QLabel(self.widget_employee)
         self.label_employee_title.setGeometry(QtCore.QRect(10, 5, 91, 21))
         self.label_employee_title.setObjectName("label_employee_title")
         self.lineEdit_employee_value = QtWidgets.QLineEdit(self.widget_employee)
-        self.lineEdit_employee_value.setGeometry(QtCore.QRect(105, 5, 511, 21))
-        self.lineEdit_employee_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_employee_value.setGeometry(QtCore.QRect(105, 0, 511, 31))
+        self.lineEdit_employee_value.setStyleSheet("")
         self.lineEdit_employee_value.setReadOnly(False)
         self.lineEdit_employee_value.setObjectName("lineEdit_employee_value")
         self.widget_real_check_in_and_change = QtWidgets.QWidget(self.widget_employee_root)
@@ -71,14 +124,14 @@ class Ui_MainWindow(object):
         self.widget_real_check_in_and_change.setStyleSheet("")
         self.widget_real_check_in_and_change.setObjectName("widget_real_check_in_and_change")
         self.pushButton_real_check_in_and_change_select_file = QtWidgets.QPushButton(self.widget_real_check_in_and_change)
-        self.pushButton_real_check_in_and_change_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_real_check_in_and_change_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_real_check_in_and_change_select_file.setObjectName("pushButton_real_check_in_and_change_select_file")
         self.label_real_check_in_and_change_title = QtWidgets.QLabel(self.widget_real_check_in_and_change)
         self.label_real_check_in_and_change_title.setGeometry(QtCore.QRect(10, 5, 131, 21))
         self.label_real_check_in_and_change_title.setObjectName("label_real_check_in_and_change_title")
         self.lineEdit_real_check_in_and_change_value = QtWidgets.QLineEdit(self.widget_real_check_in_and_change)
-        self.lineEdit_real_check_in_and_change_value.setGeometry(QtCore.QRect(145, 5, 471, 21))
-        self.lineEdit_real_check_in_and_change_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_real_check_in_and_change_value.setGeometry(QtCore.QRect(145, 0, 471, 31))
+        self.lineEdit_real_check_in_and_change_value.setStyleSheet("")
         self.lineEdit_real_check_in_and_change_value.setReadOnly(False)
         self.lineEdit_real_check_in_and_change_value.setObjectName("lineEdit_real_check_in_and_change_value")
         self.widget_real_leave = QtWidgets.QWidget(self.widget_employee_root)
@@ -86,14 +139,14 @@ class Ui_MainWindow(object):
         self.widget_real_leave.setStyleSheet("")
         self.widget_real_leave.setObjectName("widget_real_leave")
         self.pushButton_real_leave_select_file = QtWidgets.QPushButton(self.widget_real_leave)
-        self.pushButton_real_leave_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_real_leave_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_real_leave_select_file.setObjectName("pushButton_real_leave_select_file")
         self.label_real_leave_title = QtWidgets.QLabel(self.widget_real_leave)
         self.label_real_leave_title.setGeometry(QtCore.QRect(10, 5, 71, 21))
         self.label_real_leave_title.setObjectName("label_real_leave_title")
         self.lineEdit_real_leave_value = QtWidgets.QLineEdit(self.widget_real_leave)
-        self.lineEdit_real_leave_value.setGeometry(QtCore.QRect(85, 5, 531, 21))
-        self.lineEdit_real_leave_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_real_leave_value.setGeometry(QtCore.QRect(85, 0, 531, 31))
+        self.lineEdit_real_leave_value.setStyleSheet("")
         self.lineEdit_real_leave_value.setReadOnly(False)
         self.lineEdit_real_leave_value.setObjectName("lineEdit_real_leave_value")
         self.widget_manager_report = QtWidgets.QWidget(self.widget_employee_root)
@@ -101,14 +154,14 @@ class Ui_MainWindow(object):
         self.widget_manager_report.setStyleSheet("")
         self.widget_manager_report.setObjectName("widget_manager_report")
         self.pushButton_manager_report_select_file = QtWidgets.QPushButton(self.widget_manager_report)
-        self.pushButton_manager_report_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_manager_report_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_manager_report_select_file.setObjectName("pushButton_manager_report_select_file")
         self.label_manager_report_title = QtWidgets.QLabel(self.widget_manager_report)
         self.label_manager_report_title.setGeometry(QtCore.QRect(10, 5, 231, 21))
         self.label_manager_report_title.setObjectName("label_manager_report_title")
         self.lineEdit_manager_report_value = QtWidgets.QLineEdit(self.widget_manager_report)
-        self.lineEdit_manager_report_value.setGeometry(QtCore.QRect(245, 5, 371, 21))
-        self.lineEdit_manager_report_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_manager_report_value.setGeometry(QtCore.QRect(245, 0, 371, 31))
+        self.lineEdit_manager_report_value.setStyleSheet("")
         self.lineEdit_manager_report_value.setReadOnly(False)
         self.lineEdit_manager_report_value.setObjectName("lineEdit_manager_report_value")
         self.widget_save = QtWidgets.QWidget(self.widget_employee_root)
@@ -116,18 +169,18 @@ class Ui_MainWindow(object):
         self.widget_save.setStyleSheet("")
         self.widget_save.setObjectName("widget_save")
         self.pushButton_save_select_dir = QtWidgets.QPushButton(self.widget_save)
-        self.pushButton_save_select_dir.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_save_select_dir.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_save_select_dir.setObjectName("pushButton_save_select_dir")
         self.label_save_title = QtWidgets.QLabel(self.widget_save)
         self.label_save_title.setGeometry(QtCore.QRect(10, 5, 71, 21))
         self.label_save_title.setObjectName("label_save_title")
         self.lineEdit_save_value = QtWidgets.QLineEdit(self.widget_save)
-        self.lineEdit_save_value.setGeometry(QtCore.QRect(85, 5, 531, 21))
-        self.lineEdit_save_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_save_value.setGeometry(QtCore.QRect(85, 0, 531, 31))
+        self.lineEdit_save_value.setStyleSheet("")
         self.lineEdit_save_value.setReadOnly(False)
         self.lineEdit_save_value.setObjectName("lineEdit_save_value")
         self.pushButton_generate = QtWidgets.QPushButton(self.widget_employee_root)
-        self.pushButton_generate.setGeometry(QtCore.QRect(320, 270, 113, 32))
+        self.pushButton_generate.setGeometry(QtCore.QRect(320, 270, 113, 31))
         self.pushButton_generate.setObjectName("pushButton_generate")
         self.widget_month = QtWidgets.QWidget(self.widget_employee_root)
         self.widget_month.setGeometry(QtCore.QRect(20, 30, 721, 31))
@@ -136,7 +189,34 @@ class Ui_MainWindow(object):
         self.label_employee_title_2.setGeometry(QtCore.QRect(10, 5, 71, 21))
         self.label_employee_title_2.setObjectName("label_employee_title_2")
         self.comboBox_month = QtWidgets.QComboBox(self.widget_month)
-        self.comboBox_month.setGeometry(QtCore.QRect(80, 5, 61, 26))
+        self.comboBox_month.setGeometry(QtCore.QRect(80, 0, 61, 31))
+        self.comboBox_month.setStyleSheet("QComboBox {\n"
+"      background-color: rgb(47, 49, 51);\n"
+"      color: rgb(255, 255, 255);\n"
+"      border-radius: 8px;\n"
+"    border: 1px solid rgb(68, 73, 79);\n"
+"}\n"
+"\n"
+"QComboBox:drop-down {\n"
+"    border: 0px;\n"
+"}\n"
+"\n"
+"QComboBox:down-arrow {\n"
+"    image: url(:/arrow-down/icon/arrow-down 01.png);\n"
+"    width: 12px;\n"
+"    height: 12px;\n"
+"    margin-right: 10px;\n"
+"}\n"
+"\n"
+"#comboBox_month QListView {\n"
+"        background-color: rgb(47, 49, 51);\n"
+"    border-radius: 8px;\n"
+"}\n"
+"\n"
+"#comboBox_month QListView:item {\n"
+"        background-color: #fff;\n"
+"}\n"
+"")
         self.comboBox_month.setObjectName("comboBox_month")
         self.comboBox_month.addItem("")
         self.comboBox_month.addItem("")
@@ -154,40 +234,42 @@ class Ui_MainWindow(object):
         self.label_employee_title_3.setGeometry(QtCore.QRect(230, 5, 71, 21))
         self.label_employee_title_3.setObjectName("label_employee_title_3")
         self.dateEdit_start = QtWidgets.QDateEdit(self.widget_month)
-        self.dateEdit_start.setGeometry(QtCore.QRect(300, 5, 110, 24))
+        self.dateEdit_start.setGeometry(QtCore.QRect(300, 0, 110, 31))
+        self.dateEdit_start.setStyleSheet("")
         self.dateEdit_start.setCalendarPopup(True)
         self.dateEdit_start.setObjectName("dateEdit_start")
         self.label_employee_title_4 = QtWidgets.QLabel(self.widget_month)
         self.label_employee_title_4.setGeometry(QtCore.QRect(420, 5, 16, 21))
         self.label_employee_title_4.setObjectName("label_employee_title_4")
         self.dateEdit_end = QtWidgets.QDateEdit(self.widget_month)
-        self.dateEdit_end.setGeometry(QtCore.QRect(440, 5, 110, 24))
+        self.dateEdit_end.setGeometry(QtCore.QRect(440, 0, 110, 31))
         self.dateEdit_end.setCalendarPopup(True)
         self.dateEdit_end.setObjectName("dateEdit_end")
         self.widget_leave_report_converter = QtWidgets.QWidget(self.centralwidget)
         self.widget_leave_report_converter.setGeometry(QtCore.QRect(20, 59, 761, 231))
         self.widget_leave_report_converter.setObjectName("widget_leave_report_converter")
         self.label_leave_report_convertor_root_title = QtWidgets.QLabel(self.widget_leave_report_converter)
-        self.label_leave_report_convertor_root_title.setGeometry(QtCore.QRect(0, 0, 141, 20))
+        self.label_leave_report_convertor_root_title.setGeometry(QtCore.QRect(0, 0, 161, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(16)
+        font.setItalic(False)
         self.label_leave_report_convertor_root_title.setFont(font)
         self.label_leave_report_convertor_root_title.setTextFormat(QtCore.Qt.AutoText)
-        self.label_leave_report_convertor_root_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_leave_report_convertor_root_title.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_leave_report_convertor_root_title.setObjectName("label_leave_report_convertor_root_title")
         self.line_top_2 = QtWidgets.QFrame(self.widget_leave_report_converter)
         self.line_top_2.setGeometry(QtCore.QRect(170, 10, 581, 1))
         font = QtGui.QFont()
         font.setPointSize(22)
         self.line_top_2.setFont(font)
-        self.line_top_2.setStyleSheet("background-color:rgb(0, 0, 0)")
+        self.line_top_2.setStyleSheet("")
         self.line_top_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_top_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_top_2.setObjectName("line_top_2")
         self.line_left_2 = QtWidgets.QFrame(self.widget_leave_report_converter)
         self.line_left_2.setGeometry(QtCore.QRect(10, 30, 1, 161))
-        self.line_left_2.setStyleSheet("background-color:rgb(0, 0, 0)")
+        self.line_left_2.setStyleSheet("")
         self.line_left_2.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_left_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_left_2.setObjectName("line_left_2")
@@ -196,14 +278,35 @@ class Ui_MainWindow(object):
         self.widget_converter_real_leave.setStyleSheet("")
         self.widget_converter_real_leave.setObjectName("widget_converter_real_leave")
         self.pushButton_converter_real_leave_select_file = QtWidgets.QPushButton(self.widget_converter_real_leave)
-        self.pushButton_converter_real_leave_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_converter_real_leave_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
+        self.pushButton_converter_real_leave_select_file.setStyleSheet("QPushButton {\n"
+"      background-color: rgb(47, 49, 51);\n"
+"      color: rgb(255, 255, 255);\n"
+"      font-weight: 600;\n"
+"      border-radius: 8px;\n"
+"      border: 1px solid rgb(68, 73, 79);\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"      background-color: rgb(64, 68, 71);\n"
+"}")
         self.pushButton_converter_real_leave_select_file.setObjectName("pushButton_converter_real_leave_select_file")
         self.label_converter_real_leave_title = QtWidgets.QLabel(self.widget_converter_real_leave)
-        self.label_converter_real_leave_title.setGeometry(QtCore.QRect(10, 5, 71, 21))
+        self.label_converter_real_leave_title.setGeometry(QtCore.QRect(10, 0, 71, 31))
         self.label_converter_real_leave_title.setObjectName("label_converter_real_leave_title")
         self.lineEdit_converter_real_leave_value = QtWidgets.QLineEdit(self.widget_converter_real_leave)
-        self.lineEdit_converter_real_leave_value.setGeometry(QtCore.QRect(85, 5, 531, 21))
-        self.lineEdit_converter_real_leave_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_converter_real_leave_value.setGeometry(QtCore.QRect(85, 0, 531, 31))
+        self.lineEdit_converter_real_leave_value.setStyleSheet("QLineEdit {\n"
+"    background-color: rgb(47, 49, 51);\n"
+"    color: rgb(255, 255, 255);\n"
+"       border-radius: 8px;\n"
+"       border: 1px solid rgb(68, 73, 79);\n"
+"       padding: 5px 15px;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"      border: 1px solid rgb(255, 255, 255);\n"
+"}")
         self.lineEdit_converter_real_leave_value.setReadOnly(False)
         self.lineEdit_converter_real_leave_value.setObjectName("lineEdit_converter_real_leave_value")
         self.widget_converter_employee = QtWidgets.QWidget(self.widget_leave_report_converter)
@@ -211,14 +314,14 @@ class Ui_MainWindow(object):
         self.widget_converter_employee.setStyleSheet("")
         self.widget_converter_employee.setObjectName("widget_converter_employee")
         self.pushButton_converter_employee_select_file = QtWidgets.QPushButton(self.widget_converter_employee)
-        self.pushButton_converter_employee_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_converter_employee_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_converter_employee_select_file.setObjectName("pushButton_converter_employee_select_file")
         self.label_converter_employee_title = QtWidgets.QLabel(self.widget_converter_employee)
         self.label_converter_employee_title.setGeometry(QtCore.QRect(10, 5, 91, 21))
         self.label_converter_employee_title.setObjectName("label_converter_employee_title")
         self.lineEdit_converter_employee_value = QtWidgets.QLineEdit(self.widget_converter_employee)
-        self.lineEdit_converter_employee_value.setGeometry(QtCore.QRect(105, 5, 511, 21))
-        self.lineEdit_converter_employee_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_converter_employee_value.setGeometry(QtCore.QRect(105, 0, 511, 31))
+        self.lineEdit_converter_employee_value.setStyleSheet("")
         self.lineEdit_converter_employee_value.setReadOnly(False)
         self.lineEdit_converter_employee_value.setObjectName("lineEdit_converter_employee_value")
         self.widget_converter_leave_list = QtWidgets.QWidget(self.widget_leave_report_converter)
@@ -226,14 +329,14 @@ class Ui_MainWindow(object):
         self.widget_converter_leave_list.setStyleSheet("")
         self.widget_converter_leave_list.setObjectName("widget_converter_leave_list")
         self.pushButton_converter_leave_list_select_file = QtWidgets.QPushButton(self.widget_converter_leave_list)
-        self.pushButton_converter_leave_list_select_file.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_converter_leave_list_select_file.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_converter_leave_list_select_file.setObjectName("pushButton_converter_leave_list_select_file")
         self.label_converter_leave_list_title = QtWidgets.QLabel(self.widget_converter_leave_list)
         self.label_converter_leave_list_title.setGeometry(QtCore.QRect(10, 5, 71, 21))
         self.label_converter_leave_list_title.setObjectName("label_converter_leave_list_title")
         self.lineEdit_converter_leave_list_value = QtWidgets.QLineEdit(self.widget_converter_leave_list)
-        self.lineEdit_converter_leave_list_value.setGeometry(QtCore.QRect(85, 5, 531, 21))
-        self.lineEdit_converter_leave_list_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_converter_leave_list_value.setGeometry(QtCore.QRect(85, 0, 531, 31))
+        self.lineEdit_converter_leave_list_value.setStyleSheet("")
         self.lineEdit_converter_leave_list_value.setReadOnly(False)
         self.lineEdit_converter_leave_list_value.setObjectName("lineEdit_converter_leave_list_value")
         self.widget_converter_save = QtWidgets.QWidget(self.widget_leave_report_converter)
@@ -241,22 +344,36 @@ class Ui_MainWindow(object):
         self.widget_converter_save.setStyleSheet("")
         self.widget_converter_save.setObjectName("widget_converter_save")
         self.pushButton_converter_save_select_dir = QtWidgets.QPushButton(self.widget_converter_save)
-        self.pushButton_converter_save_select_dir.setGeometry(QtCore.QRect(620, 0, 113, 32))
+        self.pushButton_converter_save_select_dir.setGeometry(QtCore.QRect(632, 0, 101, 31))
         self.pushButton_converter_save_select_dir.setObjectName("pushButton_converter_save_select_dir")
         self.label_converter_save_title = QtWidgets.QLabel(self.widget_converter_save)
         self.label_converter_save_title.setGeometry(QtCore.QRect(10, 5, 71, 21))
         self.label_converter_save_title.setObjectName("label_converter_save_title")
         self.lineEdit_converter_save_value = QtWidgets.QLineEdit(self.widget_converter_save)
-        self.lineEdit_converter_save_value.setGeometry(QtCore.QRect(85, 5, 531, 21))
-        self.lineEdit_converter_save_value.setStyleSheet("background-color:transparent;")
+        self.lineEdit_converter_save_value.setGeometry(QtCore.QRect(85, 0, 531, 31))
+        self.lineEdit_converter_save_value.setStyleSheet("")
         self.lineEdit_converter_save_value.setReadOnly(False)
         self.lineEdit_converter_save_value.setObjectName("lineEdit_converter_save_value")
         self.pushButton_convert = QtWidgets.QPushButton(self.widget_leave_report_converter)
-        self.pushButton_convert.setGeometry(QtCore.QRect(320, 200, 113, 32))
+        self.pushButton_convert.setGeometry(QtCore.QRect(320, 200, 113, 31))
         self.pushButton_convert.setObjectName("pushButton_convert")
         self.textBrowser_debug_message = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser_debug_message.setGeometry(QtCore.QRect(20, 610, 761, 141))
+        self.textBrowser_debug_message.setGeometry(QtCore.QRect(20, 600, 761, 151))
+        self.textBrowser_debug_message.setStyleSheet("QTextBrowser {\n"
+"    background-color: rgb(66, 71, 75);\n"
+"    color: rgb(255, 255, 255);\n"
+"       border-radius: 8px;\n"
+"       border: 1px solid rgb(68, 73, 79);\n"
+"       padding: 5px 15px;\n"
+"}")
         self.textBrowser_debug_message.setObjectName("textBrowser_debug_message")
+        self.label_version = QtWidgets.QLabel(self.centralwidget)
+        self.label_version.setGeometry(QtCore.QRect(660, 20, 121, 20))
+        self.label_version.setStyleSheet("QLabel {\n"
+"    color: rgb(182, 182, 182);\n"
+"}")
+        self.label_version.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.label_version.setObjectName("label_version")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -272,7 +389,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "野椿企業集團"))
-        self.label.setText(_translate("MainWindow", "野椿企業集團"))
+        self.label_title.setText(_translate("MainWindow", "野椿企業集團"))
         self.label_employee_root_title.setText(_translate("MainWindow", "人力資源報表統計系統"))
         self.pushButton_employee_select_file.setText(_translate("MainWindow", "選擇檔案"))
         self.label_employee_title.setText(_translate("MainWindow", "目前人力配置 : "))
@@ -310,3 +427,5 @@ class Ui_MainWindow(object):
         self.pushButton_converter_save_select_dir.setText(_translate("MainWindow", "選擇資料夾"))
         self.label_converter_save_title.setText(_translate("MainWindow", "存擋位置 : "))
         self.pushButton_convert.setText(_translate("MainWindow", "轉換"))
+        self.label_version.setText(_translate("MainWindow", "Version: 0.0.0"))
+import src_rc

@@ -7,7 +7,4 @@ from human_resource_utils.other_company import OtherCompany
 from human_resource_utils.dreamers import Dreamers
 from human_resource_utils.leave_list_add_id_converter import LeaveListAddIDConverter
 
-# from human_resource_utils.analyze_utils.employee_analyze import EmployeeAnalyze
-# from human_resource_utils.analyze_utils.expect_check_in_leave_analyze import ExpectCheckInLeaveAnalyze
-# from human_resource_utils.analyze_utils.real_check_in_and_change_analyze import ReadCheckInAndChangeAnalyze
-# from human_resource_utils.analyze_utils.real_leave_analyze import RealLeaveAnalyze
+__version__ = '1.0.0'

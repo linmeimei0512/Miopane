@@ -8,6 +8,7 @@ from PyQt5.QtCore import QDate, QThread
 from openpyxl import Workbook
 
 from human_resource_utils.human_resource_ui import Ui_MainWindow
+from human_resource_utils import __version__
 from human_resource_utils.analyze_utils import EmployeeAnalyze, ReadCheckInAndChangeAnalyze, RealLeaveAnalyze, ExpectCheckInLeaveAnalyze
 
 class HumanResource:
@@ -260,14 +261,21 @@ class HumanResourceUI(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowFlags((self.windowFlags() & ~QtCore.Qt.WindowMaximizeButtonHint & ~QtCore.Qt.WindowFullscreenButtonHint)
+        self.setWindowFlags((self.windowFlags()
+                             & ~QtCore.Qt.WindowMaximizeButtonHint
+                             & ~QtCore.Qt.WindowFullscreenButtonHint)
                             | QtCore.Qt.CustomizeWindowHint)
         self.setWindowIcon(QtGui.QIcon('./icon/miopane.png'))
 
+        self._init_version()
         self._init_date()
         self._set_button_click()
 
         # self._init_default()
+
+
+    def _init_version(self):
+        self.label_version.setText('Version: {}'.format(__version__))
 
 
     def _set_button_click(self):
@@ -420,31 +428,18 @@ class HumanResourceUI(QMainWindow, Ui_MainWindow):
 
 
 
+
 if __name__ == '__main__':
-    # import qdarktheme
+    print('Version: {}'.format(__version__))
+    import qdarktheme
     import qdarkstyle
-    # qdarktheme.enable_hi_dpi()
+    qdarktheme.enable_hi_dpi()
 
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     # qdarktheme.setup_theme('auto')
 
     window = HumanResourceUI()
     window.show()
 
     sys.exit(app.exec_())
-
-
-    #
-    # root = tkinter.Tk()
-    # root.withdraw()
-    #
-    # file_path = filedialog.askopenfilename()
-    # print('file path: {}'.format(file_path))
-    #
-    # human_resource = HumanResource(month=3,
-    #                                employee_excel_path='../Document/目前人力配置.xlsx',
-    #                                real_check_in_and_change_excel_path='../Document/實際入職+單位異動.xlsx',
-    #                                real_leave_excel_path='../Document/2月實際離職(new).xlsx',
-    #                                expect_check_in_leave_excel_path='../Document/預計報到離職+單位主管回報人力缺額.xlsx')
-    # human_resource.save(save_path='./人力資源報表.xlsx')

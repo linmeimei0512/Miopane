@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="arrow-down">
+    <file>icon/arrow-down 01.png</file>
+  </qresource>
+</RCC>
