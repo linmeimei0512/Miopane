@@ -7,4 +7,4 @@ from human_resource_utils.other_company import OtherCompany
 from human_resource_utils.dreamers import Dreamers
 from human_resource_utils.leave_list_add_id_converter import LeaveListAddIDConverter
 
-__version__ = '1.0.0'
+__version__ = '1.1.0'

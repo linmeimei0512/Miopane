@@ -527,22 +527,22 @@ class CompanySheet(object):
         _expect_leave_number = 0
 
         if group.search_name is not None:
-            _expect_leave_list = self._expect_check_in_leave_analyze.search_by_group_name(search_group_name=group.search_name)
-            if len(_expect_leave_list) == 0:
+            _expect_check_in_leave_list = self._expect_check_in_leave_analyze.search_by_group_name(search_group_name=group.search_name)
+            if len(_expect_check_in_leave_list) == 0:
                 self._note += ('\n' if self._note != '' else '') + '未回覆預計表單'
             else:
-                if len(_expect_leave_list) > 1:
+                if len(_expect_check_in_leave_list) > 1:
                     self._note_text_color = 'FF0000'
                     self._note += ('\n' if self._note != '' else '') + '重複填寫預計表單'
 
                 # check in
-                _expect_check_in_full_time_number = _expect_leave_list[0]['預計報到人數-正職團員']
-                _expect_check_in_part_time_number = _expect_leave_list[0]['預計報到人數-部分工時團員(PT)']
+                _expect_check_in_full_time_number = _expect_check_in_leave_list[0]['預計報到人數-正職團員']
+                _expect_check_in_part_time_number = _expect_check_in_leave_list[0]['預計報到人數-部分工時團員(PT)']
                 _expect_check_in_number = _expect_check_in_full_time_number + _expect_check_in_part_time_number
 
                 # leave
-                _expect_leave_full_time_number = _expect_leave_list[0]['預計離職人數-正職團員']
-                _expect_leave_part_time_number = _expect_leave_list[0]['預計離職人數-部分工時團員(PT)']
+                _expect_leave_full_time_number = _expect_check_in_leave_list[0]['預計離職人數-正職團員']
+                _expect_leave_part_time_number = _expect_check_in_leave_list[0]['預計離職人數-部分工時團員(PT)']
                 _expect_leave_number = _expect_leave_full_time_number + _expect_leave_part_time_number
 
                 # write note
@@ -559,6 +559,10 @@ class CompanySheet(object):
                                         ('FT*{}'.format(str(_expect_leave_full_time_number)) if _expect_leave_full_time_number > 0 else '') + \
                                         ('、' if _expect_leave_full_time_number > 0 and _expect_leave_part_time_number > 0 else '') + \
                                         ('PT*{}'.format(str(_expect_leave_part_time_number)) if _expect_leave_part_time_number > 0 else '')
+
+                # comment
+                _comment = _expect_check_in_leave_list[0]['備註(預計離職及預計報到日期)']
+                self._note += (' [備註：{}]'.format(_comment) if _comment != '' else '')
 
             _department_list.append({DictionaryKey.VALUE: _expect_check_in_number,
                                      DictionaryKey.START: self._get_column_string_by_shift_index(13) + str(row_index),
